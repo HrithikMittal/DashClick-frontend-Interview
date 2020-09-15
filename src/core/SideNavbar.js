@@ -36,6 +36,12 @@ const SideNavbar = () => {
                 </NavIcon>
                 <NavText>Login</NavText>
               </NavItem>
+              <NavItem eventKey="user">
+                <NavIcon>
+                  <i className="fa fa-sign-in" style={{ fontSize: "1.75em" }} />
+                </NavIcon>
+                <NavText>User</NavText>
+              </NavItem>
             </SideNav.Nav>
           </SideNav>
         </React.Fragment>

@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Home from "./core/Home";
 import SideNavbar from "./core/SideNavbar";
+import User from "./core/User";
 
 const MainRouter = () => {
   return (
@@ -10,6 +11,7 @@ const MainRouter = () => {
       <SideNavbar></SideNavbar>
       <Switch>
         <Route path="/" exact component={Home}></Route>
+        <Route path="/user" exact component={User}></Route>
       </Switch>
     </div>
   );
