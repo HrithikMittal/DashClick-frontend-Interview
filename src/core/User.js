@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Graph from "./graph/Graph";
+import makeToast from "../components/Toaster";
 
 class User extends Component {
   state = {
@@ -14,7 +15,6 @@ class User extends Component {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.error) {
           this.setState({ error: data.error });
           return;
@@ -28,11 +28,34 @@ class User extends Component {
 
   showWorkingHour = (id) => {
     for (let i = 0; i < this.state.user.length; i++) {
-      if (this.state.user[i]._id == id) {
+      if (this.state.user[i]._id === id) {
         this.setState({ currentTime: this.state.user[i].workingHours });
         break;
       }
     }
+  };
+
+  deleteHandler = (e, id) => {
+    console.log(id);
+    e.preventDefault();
+    fetch(`https://dashclick.herokuapp.com/admin/deleteUser/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        if (res.error) {
+          makeToast("error", "Request Failed");
+          return;
+        }
+        console.log(res);
+        makeToast("success", "Deleted Succesfully !!");
+        let user = [...this.state.user];
+        user = user.filter((user) => user._id !== id);
+        this.setState({ user: user });
+      })
+      .catch((err) => makeToast("error", "Request Failed"));
   };
 
   render() {
@@ -57,6 +80,26 @@ class User extends Component {
 
           <th>
             <i class="fa fa-tasks"></i>
+          </th>
+          <th>
+            {
+              <button
+                style={{ display: "inline-block", marginRight: "8px" }}
+                className="btn btn-primary"
+                // onClick={(e) => this.startEditHandler(e, ele["_id"])}
+              >
+                Edit
+              </button>
+            }
+          </th>
+          <th>
+            <button
+              style={{ display: "inline-block" }}
+              className="btn btn-danger"
+              onClick={(e) => this.deleteHandler(e, ele["_id"])}
+            >
+              Delete
+            </button>
           </th>
         </tr>
       );

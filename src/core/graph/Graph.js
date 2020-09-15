@@ -19,6 +19,7 @@ class Graph extends Component {
         if (ele.label === "Mon") {
           ele.y[0] = timing.monday.start;
           ele.y[1] = timing.monday.end;
+          return 1;
         }
       });
     }
@@ -27,6 +28,7 @@ class Graph extends Component {
         if (ele.label === "Tue") {
           ele.y[0] = timing.tuesday.start;
           ele.y[1] = timing.tuesday.end;
+          return 1;
         }
       });
     }
@@ -35,6 +37,7 @@ class Graph extends Component {
         if (ele.label === "Wed") {
           ele.y[0] = timing.wednesday.start;
           ele.y[1] = timing.wednesday.end;
+          return 1;
         }
       });
     }

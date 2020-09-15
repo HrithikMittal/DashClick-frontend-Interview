@@ -38,7 +38,7 @@ const SideNavbar = () => {
               </NavItem>
               <NavItem eventKey="user">
                 <NavIcon>
-                  <i className="fa fa-sign-in" style={{ fontSize: "1.75em" }} />
+                  <i className="fa fa-users" style={{ fontSize: "1.75em" }} />
                 </NavIcon>
                 <NavText>User</NavText>
               </NavItem>
