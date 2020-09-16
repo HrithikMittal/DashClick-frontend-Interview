@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import Graph from "./graph/Graph";
 import makeToast from "../components/Toaster";
+import AddUser from "./AddUser";
+import EditUser from "./EditUser";
 
 class User extends Component {
   state = {
     error: "",
     user: [],
     currentTime: {},
+    userId: "",
+    graphOpen: false,
+    newUserOpen: false,
+    editUserOpen: false,
   };
 
   componentDidMount() {
@@ -27,6 +33,7 @@ class User extends Component {
   }
 
   showWorkingHour = (id) => {
+    this.setState({ graphOpen: true, newUserOpen: false, editUserOpen: false });
     for (let i = 0; i < this.state.user.length; i++) {
       if (this.state.user[i]._id === id) {
         this.setState({ currentTime: this.state.user[i].workingHours });
@@ -49,7 +56,6 @@ class User extends Component {
           makeToast("error", "Request Failed");
           return;
         }
-        console.log(res);
         makeToast("success", "Deleted Succesfully !!");
         let user = [...this.state.user];
         user = user.filter((user) => user._id !== id);
@@ -86,7 +92,16 @@ class User extends Component {
               <button
                 style={{ display: "inline-block", marginRight: "8px" }}
                 className="btn btn-primary"
-                // onClick={(e) => this.startEditHandler(e, ele["_id"])}
+                data-toggle="modal"
+                data-target="#exampleModalLong"
+                onClick={(e) =>
+                  this.setState({
+                    userId: ele._id,
+                    graphOpen: false,
+                    newUserOpen: false,
+                    editUserOpen: true,
+                  })
+                }
               >
                 Edit
               </button>
@@ -131,7 +146,13 @@ class User extends Component {
                 </button>
               </div>
               <div class="modal-body">
-                <Graph timing={this.state.currentTime} />
+                {this.state.graphOpen && (
+                  <Graph timing={this.state.currentTime} />
+                )}
+                {this.state.newUserOpen && <AddUser />}
+                {this.state.editUserOpen && (
+                  <EditUser userId={this.state.userId} />
+                )}
               </div>
               <div class="modal-footer">
                 <button
@@ -150,6 +171,15 @@ class User extends Component {
             type="button"
             style={{ position: "absolute", right: 50, top: 30 }}
             class="btn btn-outline-success"
+            data-toggle="modal"
+            data-target="#exampleModalLong"
+            onClick={() =>
+              this.setState({
+                graphOpen: false,
+                editUserOpen: false,
+                newUserOpen: true,
+              })
+            }
           >
             Add User
           </button>
