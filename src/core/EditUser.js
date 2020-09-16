@@ -1,16 +1,16 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 class EditUser extends Component {
   state = {
-    email : "",
+    email: "",
     name: "",
     designation: "",
     workingHours: {},
   };
 
   handleChange = (name) => (event) => {
-    this.setState({error : ""});
-    this.setState({[name] : event.target.value});
+    this.setState({ error: "" });
+    this.setState({ [name]: event.target.value });
   };
 
   changeTime = (time1) => {
@@ -40,106 +40,117 @@ class EditUser extends Component {
 
     if (document.getElementById("Check1").checked) {
       let time = {
-        start : time1,
-        end : time8,
+        start: time1,
+        end: time8,
       };
       obj["monday"] = time;
     }
     if (document.getElementById("Check2").checked) {
       let time = {
-        start : time2,
-        end : time9,
+        start: time2,
+        end: time9,
       };
       obj["tuesday"] = time;
     }
     if (document.getElementById("Check3").checked) {
       let time = {
-        start : time3,
-        end : time10,
+        start: time3,
+        end: time10,
       };
       obj["wednesday"] = time;
     }
     if (document.getElementById("Check4").checked) {
       let time = {
-        start : time4,
-        end : time11,
+        start: time4,
+        end: time11,
       };
       obj["thursday"] = time;
     }
     if (document.getElementById("Check5").checked) {
       let time = {
-        start : time5,
-        end : time12,
+        start: time5,
+        end: time12,
       };
       obj["friday"] = time;
     }
     if (document.getElementById("Check6").checked) {
       let time = {
-        start : time6,
-        end : time13,
+        start: time6,
+        end: time13,
       };
       obj["saturday"] = time;
     }
     if (document.getElementById("Check7").checked) {
       let time = {
-        start : time7,
-        end : time14,
+        start: time7,
+        end: time14,
       };
       obj["sunday"] = time;
     }
     var user = this.state;
     user.workingHours = obj;
     fetch(
-        `https://dashclick.herokuapp.com/admin/updateUser/${this.props.userId}`,
-        {
-          method : "PUT",
-          headers : {
-            Accept : "application/json",
-            "Content-Type" : "application/json",
-          },
-          body : JSON.stringify(user),
-        })
-        .then((response) => { return response.json(); })
-        .then((data) => {
-          if (data.error) {
-            this.setState({
-              designation : "",
-              name : "",
-              email : "",
-              error : data.error,
-            });
-            return;
-          }
+      `https://dashclick.herokuapp.com/admin/updateUser/${this.props.userId}`,
+      {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
           this.setState({
-            error : "",
-            workingHours : {},
-            designation : "",
-            name : "",
-            email : "",
+            designation: "",
+            name: "",
+            email: "",
+            error: data.error,
           });
-        })
-        .catch((err) => { console.log("Error in updating User!"); });
+          return;
+        }
+        this.setState({
+          error: "",
+          workingHours: {},
+          designation: "",
+          name: "",
+          email: "",
+        });
+      })
+      .catch((err) => {
+        console.log("Error in updating User!");
+      });
   };
 
   componentDidUpdate() {
-    fetch(`https://dashclick.herokuapp.com/admin/getUser/${this.props.userId}`,
-          {
-            method : "GET",
-            headers : {
-              Accept : "application/json",
-              "Content-Type" : "application/json",
-            },
-          })
-        .then((response) => { return response.json(); })
-        .then((data) => {
-          this.setState({
-            email : data.email,
-            name : data.name,
-            designation : data.designation,
-          });
-          console.log(data);
-        })
-        .catch((err) => { console.log("Error in getting User!"); });
+    fetch(
+      `https://dashclick.herokuapp.com/admin/getUser/${this.props.userId}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          email: data.email,
+          name: data.name,
+          designation: data.designation,
+        });
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("Error in getting User!");
+      });
   }
 
   render() {
@@ -180,105 +191,105 @@ class EditUser extends Component {
           <div className="form-group">
             <label>Designation</label>
             <input
-    type = "text"
-    className = "form-control"
-    value = {this.state.designation} onChange = {this.handleChange(
-        "designation")} placeholder =
-        "Designation" / >
-        </div>
+              type="text"
+              className="form-control"
+              value={this.state.designation}
+              onChange={this.handleChange("designation")}
+              placeholder="Designation"
+            />
+          </div>
           <div className="form-group">
             <label>Working Hours</label>
-        <div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check1" />
-        <label className = "form-check-label">Monday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time1" type="time" /><
-        label
-    className = "form-check-label"
-    style =
-        {{ margin: "0px 10px" }} > to<input style =
-                                      {
-                                        { marginLeft: "10px" }
-                                      } id = "timem" type = "time" />
-        </label>
-            </div><div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check2" />
-        <label className = "form-check-label">Tuesday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time2" type="time" /><
-        label
-    className = "form-check-label"
-    style =
-        {{ margin: "0px 10px" }} > to<input style =
-                                      {
-                                        { marginLeft: "10px" }
-                                      } id = "timetu" type = "time" />
-        </label>
-            </div><div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check3" />
-        <label className = "form-check-label">Wednesday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time3" type="time" /><
-        label
-    className = "form-check-label"
-    style =
-        {{ margin: "0px 10px" }} > to<input style =
-                                      {
-                                        { marginLeft: "10px" }
-                                      } id = "timew" type = "time" />
-        </label>
-            </div><div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check4" />
-        <label className = "form-check-label">Thursday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time4" type="time" /><
-        label
-    className = "form-check-label"
-    style =
-        {{ margin: "0px 10px" }} > to<input style =
-                                      {
-                                        { marginLeft: "10px" }
-                                      } id = "timeth" type = "time" />
-        </label>
-            </div><div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check5" />
-        <label className = "form-check-label">Friday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time5" type="time" /><
-        label
-    className = "form-check-label"
-    style =
-        {{ margin: "0px 10px" }} > to<input style =
-                                      {
-                                        { marginLeft: "10px" }
-                                      } id = "timef" type = "time" />
-        </label>
-            </div><div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check6" />
-        <label className = "form-check-label">Saturday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time6" type="time" /><
-        label
-    className = "form-check-label"
-    style =
-        {{ margin: "0px 10px" }} > to<input style =
-                                      {
-                                        { marginLeft: "10px" }
-                                      } id = "timesa" type = "time" />
-        </label>
-            </div><div className = "form-check">
-        <input type = "checkbox" className = "form-check-input" id = "Check7" />
-        <label className = "form-check-label">Sunday<
-            /label>
-              <input style={{ marginLeft: "10px" }} id="time7" type="time" /><
-        label
-    className = "form-check-label"
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check1" />
+              <label className="form-check-label">Monday</label>
+              <input style={{ marginLeft: "10px" }} id="time1" type="time" />
+              <label
+                className="form-check-label"
+                style={{ margin: "0px 10px" }}
+              >
+                {" "}
+                to
+                <input style={{ marginLeft: "10px" }} id="timem" type="time" />
+              </label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check2" />
+              <label className="form-check-label">Tuesday</label>
+              <input style={{ marginLeft: "10px" }} id="time2" type="time" />
+              <label
+                className="form-check-label"
+                style={{ margin: "0px 10px" }}
+              >
+                {" "}
+                to
+                <input style={{ marginLeft: "10px" }} id="timetu" type="time" />
+              </label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check3" />
+              <label className="form-check-label">Wednesday</label>
+              <input style={{ marginLeft: "10px" }} id="time3" type="time" />
+              <label
+                className="form-check-label"
+                style={{ margin: "0px 10px" }}
+              >
+                {" "}
+                to
+                <input style={{ marginLeft: "10px" }} id="timew" type="time" />
+              </label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check4" />
+              <label className="form-check-label">Thursday</label>
+              <input style={{ marginLeft: "10px" }} id="time4" type="time" />
+              <label
+                className="form-check-label"
+                style={{ margin: "0px 10px" }}
+              >
+                {" "}
+                to
+                <input style={{ marginLeft: "10px" }} id="timeth" type="time" />
+              </label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check5" />
+              <label className="form-check-label">Friday</label>
+              <input style={{ marginLeft: "10px" }} id="time5" type="time" />
+              <label
+                className="form-check-label"
+                style={{ margin: "0px 10px" }}
+              >
+                {" "}
+                to
+                <input style={{ marginLeft: "10px" }} id="timef" type="time" />
+              </label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check6" />
+              <label className="form-check-label">Saturday</label>
+              <input style={{ marginLeft: "10px" }} id="time6" type="time" />
+              <label
+                className="form-check-label"
+                style={{ margin: "0px 10px" }}
+              >
+                {" "}
+                to
+                <input style={{ marginLeft: "10px" }} id="timesa" type="time" />
+              </label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" className="form-check-input" id="Check7" />
+              <label className="form-check-label">Sunday</label>
+              <input style={{ marginLeft: "10px" }} id="time7" type="time" />
+              <label
+                className="form-check-label"
                 style={{
-      margin: "0px 10px" }}
+                  margin: "0px 10px",
+                }}
               >
                 to
-                <input style={
-      { marginLeft: "10px" }} id="timesu" type="time" />
+                <input style={{ marginLeft: "10px" }} id="timesu" type="time" />
               </label>
             </div>
           </div>
