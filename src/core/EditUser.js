@@ -126,7 +126,7 @@ class EditUser extends Component {
       });
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     fetch(
       `https://dashclick.herokuapp.com/admin/getUser/${this.props.userId}`,
       {
