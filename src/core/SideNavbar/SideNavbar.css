@@ -1,0 +1,18 @@
+.main__sidenav {
+    margin: 0;
+    width: 80px;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #4285F4;
+    color: #fff;
+    box-shadow: 10px 0px 10px rgba(0, 0, 0, .1);
+}
+
+.main__sidenav i {
+    font-size: 2em;
+    color: #fff;
+}
+
+.main__sidenav .nav-item {
+    margin-left: 5px;
+}

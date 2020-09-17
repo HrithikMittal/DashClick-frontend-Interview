@@ -1,0 +1,13 @@
+.container form .submit_btn{
+    width: 120px;
+    height:35px;
+    background-color:#00C851;
+    color:white;
+    border:none;
+    border-radius:30px;
+    cursor: pointer;
+}
+
+.container form .submit_btn:hover{
+    background-color: #007E33;
+}

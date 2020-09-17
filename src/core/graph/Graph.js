@@ -3,6 +3,7 @@ import CanvasJSReact from "./canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Graph extends Component {
+  componentDidUpdate() {}
   render() {
     const { timing } = this.props;
     let baseVal = [
@@ -14,7 +15,7 @@ class Graph extends Component {
       { label: "Sat", y: [0, 0] },
       { label: "Sun", y: [0, 0] },
     ];
-    if (timing.monday) {
+    if (timing.monday !== undefined) {
       baseVal.map((ele) => {
         if (ele.label === "Mon") {
           ele.y[0] = timing.monday.start;
