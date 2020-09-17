@@ -1,0 +1,24 @@
+.main_table {
+    width: 1370px;
+    margin-top: 50px;
+    margin-left: 140px;
+}
+
+.list_data:hover {
+    background-color: rgb(238, 235, 235);
+}
+
+.user-lists .row .add_user_button{
+    width: 130px;
+    height: 35px;
+    background-color: #4285F4;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.user-lists .row .add_user_button:hover{
+    background-color: #0d47a1;
+}
+
