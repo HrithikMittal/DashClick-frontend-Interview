@@ -1,22 +1,16 @@
 import React, { Component } from "react";
-import "./EditUser.css";
+import "./AddTasks.css";
 
-class EditUser extends Component {
+class AddTask extends Component {
   state = {
-    email: this.props.email,
-    name: this.props.name,
-    designation: this.props.designation,
+    name: "",
+    description: "",
+    subtasks: [],
+    dueDate: "",
     workingHours: {},
     success: false,
+    error: "",
   };
-
-  componentDidMount() {
-    this.setState({
-      email: this.props.email,
-      name: this.props.name,
-      designation: this.props.designation,
-    });
-  }
 
   handleChange = (name) => (event) => {
     this.setState({ error: "", success: false });
@@ -97,124 +91,112 @@ class EditUser extends Component {
       };
       obj["sunday"] = time;
     }
-    var user = {};
-    user["name"] = this.state.name;
-    user["email"] = this.state.email;
-    user["designation"] = this.state.designation;
-
-    if (Object.keys(obj).length !== 0) {
-      var time = this.props.workingHours;
-      console.log(obj);
-      if (obj.monday !== undefined) {
-        time["monday"] = obj["monday"];
-      }
-      if (obj.tuesday !== undefined) {
-        time["tueday"] = obj["tueday"];
-      }
-      if (obj.wednesday !== undefined) {
-        time["wednesday"] = obj["wednesday"];
-      }
-      if (obj.thursday !== undefined) {
-        time["thursday"] = obj["thursday"];
-      }
-      if (obj.friday !== undefined) {
-        time["friday"] = obj["friday"];
-      }
-      if (obj.saturday !== undefined) {
-        time["saturday"] = obj["saturday"];
-      }
-      user.workingHours = time;
+    var user = this.state;
+    if (Object.keys(obj).length === 0) {
+      obj["monday"] = { start: 0, end: 0 };
     }
-
-    fetch(
-      `https://dashclick.herokuapp.com/admin/updateUser/${this.props.userId}`,
-      {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    )
+    user.workingHours = obj;
+    if (user.subtasks.length !== 0) {
+      user.subtasks = user.subtasks.split(" ");
+    }
+    console.log(user);
+    fetch(`https://dashclick.herokuapp.com/admin/createTask`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         if (data.error) {
+          console.log(data);
           this.setState({
-            designation: "",
-            name: "",
-            email: "",
             error: data.error,
-            success: false,
           });
           return;
         }
         this.setState({
           error: "",
           workingHours: {},
-          designation: "",
+          subtasks: [],
+          dueDate: "",
           name: "",
-          email: "",
+          description: "",
           success: true,
         });
       })
       .catch((err) => {
-        console.log("Error in updating User!");
+        console.log("Error in creating User!");
       });
   };
+
   render() {
     return (
       <div className="container">
-        <h2 className="mt-2 mb-3">Edit Profile</h2>
-
-        <div
-          className="alert alert-danger"
-          style={{ display: this.state.error ? "" : "none" }}
-        >
-          {this.state.error}
-        </div>
+        <h2 className="mt-2 mb-3">Add Task</h2>
+        {
+          <div
+            className="alert alert-danger"
+            style={{ display: this.state.error ? "" : "none" }}
+          >
+            {this.state.error}
+          </div>
+        }
         {this.state.success && (
           <div
             className="alert alert-success"
             style={{ display: this.state.success ? "" : "none" }}
           >
-            Your account updated successfully!
+            New Task created successfully!
           </div>
         )}
-        <form>
+        <form onSubmit={this.createUser}>
           <div className="form-group">
-            <label>Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              onChange={this.handleChange("email")}
-              value={this.state.email}
-              readOnly
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              sorry, you can't change email for a profile!
-            </small>
-          </div>
-          <div className="form-group">
-            <label>Name</label>
+            <label>Task Name</label>
             <input
               type="text"
               className="form-control"
-              value={this.state.name}
               onChange={this.handleChange("name")}
-              placeholder="Name"
+              value={this.state.name}
+              placeholder="Add a name for new task"
+              required
             />
           </div>
           <div className="form-group">
-            <label>Designation</label>
+            <label>Description</label>
             <input
               type="text"
               className="form-control"
-              value={this.state.designation}
-              onChange={this.handleChange("designation")}
-              placeholder="Designation"
+              value={this.state.description}
+              onChange={this.handleChange("description")}
+              placeholder="Description"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Subtasks</label>
+            <input
+              type="text"
+              data-role="tagsinput"
+              className="form-control"
+              value={this.state.subtasks}
+              name="subTasks[]"
+              onChange={this.handleChange("subtasks")}
+              placeholder="Subtasks"
+            />
+          </div>
+          <div className="form-group">
+            <label>Due Date</label>
+            <input
+              type="date"
+              className="form-control"
+              value={this.state.dueDate}
+              onChange={this.handleChange("dueDate")}
+              placeholder="Due Date"
             />
           </div>
           <div className="form-group">
@@ -282,9 +264,9 @@ class EditUser extends Component {
               />
               <label className="form-check-label">Wednesday</label>
               <input
+                type="time"
                 style={{ marginLeft: "52px" }}
                 id="time3"
-                type="time"
                 value="09:00"
               />
               <label
@@ -409,11 +391,7 @@ class EditUser extends Component {
               </label>
             </div>
           </div>
-          <button
-            type="submit"
-            className="submit_btn"
-            onClick={this.createUser}
-          >
+          <button type="submit" className="submit_btn">
             Submit
           </button>
         </form>
@@ -422,4 +400,4 @@ class EditUser extends Component {
   }
 }
 
-export default EditUser;
+export default AddTask;

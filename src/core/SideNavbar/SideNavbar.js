@@ -43,6 +43,12 @@ const SideNavbar = () => {
                 </NavIcon>
                 <NavText style={{fontSize: '16px'}}>User</NavText>
               </NavItem>
+              <NavItem eventKey="tasks" className='nav-item'>
+                <NavIcon>
+                  <i className="fa fa-calendar" />
+                </NavIcon>
+                <NavText style={{ fontSize: '16px' }}>Tasks</NavText>
+              </NavItem>
             </SideNav.Nav>
           </SideNav>
         </React.Fragment>
