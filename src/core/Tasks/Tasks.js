@@ -17,12 +17,29 @@ class Tasks extends Component {
 
   showWorkingHour = (id) => {
     this.setState({ graphOpen: true, newUserOpen: false, editUserOpen: false });
-    for (let i = 0; i < this.state.user.length; i++) {
-      if (this.state.user[i]._id === id) {
-        this.setState({ currentTime: this.state.user[i].workingHours });
+    for (let i = 0; i < this.state.tasks.length; i++) {
+      if (this.state.tasks[i]._id === id) {
+        this.setState({ currentTime: this.state.tasks[i].workingHours });
         break;
       }
     }
+  };
+
+  updateTasksHandler = () => {
+    fetch(`https://dashclick.herokuapp.com/admin/getAllTasks`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          this.setState({ error: data.error });
+          return;
+        }
+        this.setState({ tasks: data.tasks });
+      })
+      .catch((err) => {
+        console.log("Error in Getting all the tasks", err);
+      });
   };
 
   componentDidMount() {
@@ -82,6 +99,22 @@ class Tasks extends Component {
                 <p className="card-text">{this.printDate(task.dueDate)}</p>
 
                 <p>{task.description}</p>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#exampleModalLong"
+                  onClick={() => this.showWorkingHour(task._id)}
+                >
+                  Working Hours <i class="fa fa-calendar"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  onClick={() => this.showWorkingHour(task._id)}
+                >
+                  Delete
+                </button>
                 <div className="text-right">
                   {task.user !== undefined ? (
                     <h5>{task.user.name}</h5>
@@ -121,6 +154,7 @@ class Tasks extends Component {
                     class="close"
                     data-dismiss="modal"
                     aria-label="Close"
+                    onClick={() => this.updateTasksHandler()}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -136,6 +170,7 @@ class Tasks extends Component {
                     type="button"
                     class="btn btn-secondary"
                     data-dismiss="modal"
+                    onClick={() => this.updateTasksHandler()}
                   >
                     Close
                   </button>
