@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { addUser } from "../../auth";
 import "./AddUser.css";
 
 class AddUser extends Component {
@@ -95,14 +96,8 @@ class AddUser extends Component {
       obj["monday"] = { start: 0, end: 0 };
     }
     user.workingHours = obj;
-    fetch(`https://dashclick.herokuapp.com/admin/createUser`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+
+    addUser(user)
       .then((response) => {
         return response.json();
       })
@@ -124,9 +119,6 @@ class AddUser extends Component {
           email: "",
           success: true,
         });
-      })
-      .catch((err) => {
-        console.log("Error in creating User!");
       });
   };
 

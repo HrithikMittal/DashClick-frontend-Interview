@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import Graph from "../graph/Graph";
 import makeToast from "../../components/Toaster";
 import AddUser from "../AddUser/AddUser";
 import EditUser from "../EditUser/EditUser";
+import { deleteUser, getAllUsers } from "../../auth/index";
+
 import "./User.css";
-import { Link } from "react-router-dom";
 
 class User extends Component {
   state = {
@@ -21,37 +24,23 @@ class User extends Component {
   };
 
   componentDidMount() {
-    fetch(`https://dashclick.herokuapp.com/admin/getAllUsers`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({ error: data.error });
-          return;
-        }
-        this.setState({ user: data.user });
-      })
-      .catch((err) => {
-        console.log("Error in Getting all the users", err);
-      });
+    getAllUsers().then((data) => {
+      if (data.error) {
+        this.setState({ error: data.error });
+        return;
+      }
+      this.setState({ user: data.user });
+    });
   }
 
   updateUserHandler = () => {
-    fetch(`https://dashclick.herokuapp.com/admin/getAllUsers`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({ error: data.error });
-          return;
-        }
-        this.setState({ user: data.user });
-      })
-      .catch((err) => {
-        console.log("Error in Getting all the users", err);
-      });
+    getAllUsers().then((data) => {
+      if (data.error) {
+        this.setState({ error: data.error });
+        return;
+      }
+      this.setState({ user: data.user });
+    });
   };
 
   showWorkingHour = (id) => {
@@ -66,23 +55,16 @@ class User extends Component {
 
   deleteHandler = (e, id) => {
     e.preventDefault();
-    fetch(`https://dashclick.herokuapp.com/admin/deleteUser/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        if (res.error) {
-          makeToast("error", "Request Failed");
-          return;
-        }
-        makeToast("success", "Deleted Succesfully !!");
-        let user = [...this.state.user];
-        user = user.filter((user) => user._id !== id);
-        this.setState({ user: user });
-      })
-      .catch((err) => makeToast("error", "Request Failed"));
+    deleteUser(id).then((res) => {
+      if (res.error) {
+        makeToast("error", "Request Failed");
+        return;
+      }
+      makeToast("success", "Deleted Succesfully !!");
+      let user = [...this.state.user];
+      user = user.filter((user) => user._id !== id);
+      this.setState({ user: user });
+    });
   };
 
   render() {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { deleteTask, getAllTasks } from "../../auth";
 
 import makeToast from "../../components/Toaster";
 import Graph from "../graph/Graph";
@@ -34,62 +35,37 @@ class Tasks extends Component {
   };
 
   updateTasksHandler = () => {
-    fetch(`https://dashclick.herokuapp.com/admin/getAllTasks`, {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({ error: data.error });
-          return;
-        }
-        this.setState({ tasks: data.tasks });
-      })
-      .catch((err) => {
-        console.log("Error in Getting all the tasks", err);
-      });
+    getAllTasks().then((data) => {
+      if (data.error) {
+        this.setState({ error: data.error });
+        return;
+      }
+      this.setState({ tasks: data.tasks });
+    });
   };
 
   componentDidMount() {
-    fetch("https://dashclick.herokuapp.com/admin/getAllTasks", {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({ error: data.error });
-          return;
-        }
-        this.setState({ tasks: data.tasks });
-      })
-      .catch((err) => {
-        console.log("Error", err);
-      });
+    getAllTasks().then((data) => {
+      if (data.error) {
+        this.setState({ error: data.error });
+        return;
+      }
+      this.setState({ tasks: data.tasks });
+    });
   }
 
   deleteHandler = (e, id) => {
     e.preventDefault();
-    fetch(`https://dashclick.herokuapp.com/admin/deleteTask/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        if (res.error) {
-          makeToast("error", "Request Failed");
-          return;
-        }
-        makeToast("success", "Deleted Succesfully !!");
-        let tasks = [...this.state.tasks];
-        tasks = tasks.filter((task) => task._id !== id);
-        this.setState({ tasks: tasks });
-      })
-      .catch((err) => makeToast("error", "Request Failed"));
+    deleteTask(id).then((res) => {
+      if (res.error) {
+        makeToast("error", "Request Failed");
+        return;
+      }
+      makeToast("success", "Deleted Succesfully !!");
+      let tasks = [...this.state.tasks];
+      tasks = tasks.filter((task) => task._id !== id);
+      this.setState({ tasks: tasks });
+    });
   };
 
   printDate = (date) => {
@@ -184,8 +160,11 @@ class Tasks extends Component {
                 >
                   Delete <i className="fa fa-trash"></i>
                 </button>
+                {console.log(task.user)}
                 <div className="text-right">
-                  {task.user !== undefined ? (
+                  {task.user !== "" &&
+                  task.user !== null &&
+                  task.user !== undefined ? (
                     <h5>{task.user.name}</h5>
                   ) : (
                     <Link to={address}>

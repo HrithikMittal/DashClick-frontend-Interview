@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { getUser } from "../../auth";
 import "./UserTask.scss";
 
 class UserTask extends Component {
@@ -7,19 +8,10 @@ class UserTask extends Component {
   };
 
   componentDidMount() {
-    fetch(
-      `https://dashclick.herokuapp.com/admin/getUser/${this.props.match.params.userId}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        this.setState({ tasks: data.tasks });
-      })
-      .catch((err) => {
-        console.log("Error");
-      });
+    getUser(this.props.match.params.userId).then((data) => {
+      console.log(data);
+      this.setState({ tasks: data.tasks });
+    });
   }
 
   printDate = (date) => {

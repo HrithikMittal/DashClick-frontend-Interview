@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import { editUser } from "../../auth";
 import "./EditUser.css";
 
 class EditUser extends Component {
@@ -127,17 +129,7 @@ class EditUser extends Component {
       user.workingHours = time;
     }
 
-    fetch(
-      `https://dashclick.herokuapp.com/admin/updateUser/${this.props.userId}`,
-      {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    )
+    editUser(this.props.userId, user)
       .then((response) => {
         return response.json();
       })
@@ -160,9 +152,6 @@ class EditUser extends Component {
           email: "",
           success: true,
         });
-      })
-      .catch((err) => {
-        console.log("Error in updating User!");
       });
   };
   render() {

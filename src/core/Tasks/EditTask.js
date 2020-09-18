@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { editUser, removeUser } from "../../auth";
 
 import makeToast from "../../components/Toaster";
 import "./EditTask.css";
@@ -136,43 +137,25 @@ class EditTask extends Component {
       }
       task.workingHours = time;
     }
-    fetch(
-      `https://dashclick.herokuapp.com/admin/updateTask/${this.props.taskId}`,
-      {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(task),
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({
-            error: data.error,
-            success: false,
-          });
-          return;
-        }
+
+    editUser(this.props.taskId).then((data) => {
+      if (data.error) {
         this.setState({
-          success: true,
+          error: data.error,
+          success: false,
         });
-      })
-      .catch((err) => {
-        console.log("Error in updating Task!");
+        return;
+      }
+      this.setState({
+        success: true,
       });
+    });
   };
 
   deleteHandler = (e, id) => {
     e.preventDefault();
     this.setState({ user: undefined });
-    fetch(`https://dashclick.herokuapp.com/admin/removeUser/${id}`, {
-      method: "DELETE",
-    })
+    removeUser(id)
       .then((response) => {
         return response.json();
       })
@@ -182,8 +165,7 @@ class EditTask extends Component {
           return;
         }
         makeToast("success", "Deleted Succesfully !!");
-      })
-      .catch((err) => makeToast("error", "Request Failed"));
+      });
   };
 
   render() {

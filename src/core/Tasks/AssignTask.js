@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { getAllUsers, assignTask, getTask } from "../../auth";
 
 class AssignTask extends Component {
   state = {
@@ -16,43 +17,27 @@ class AssignTask extends Component {
 
   componentDidMount() {
     this.setState({ taskId: this.props.match.params.taskId });
-    fetch(
-      `https://dashclick.herokuapp.com/admin/getTask/${this.props.match.params.taskId}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({ error: data.error });
-          return;
-        }
-        this.setState({
-          name: data.name,
-          description: data.description,
-          dueDate: data.dueDate,
-          workingHours: data.workingHours,
-          subtasks: data.subtasks,
-        });
-      })
-      .catch((err) => {
-        console.log("Error in Getting all the users", err);
+    getTask(this.props.match.params.taskId).then((data) => {
+      if (data.error) {
+        this.setState({ error: data.error });
+        return;
+      }
+      this.setState({
+        name: data.name,
+        description: data.description,
+        dueDate: data.dueDate,
+        workingHours: data.workingHours,
+        subtasks: data.subtasks,
       });
+    });
 
-    fetch(`https://dashclick.herokuapp.com/admin/getAllUsers`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({ error: data.error });
-          return;
-        }
-        this.setState({ users: data.user });
-      })
-      .catch((err) => {
-        console.log("Error in Getting all the users", err);
-      });
+    getAllUsers().then((data) => {
+      if (data.error) {
+        this.setState({ error: data.error });
+        return;
+      }
+      this.setState({ users: data.user });
+    });
   }
 
   renderUser = (users) => {
@@ -85,25 +70,13 @@ class AssignTask extends Component {
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
 
-    fetch(
-      `https://dashclick.herokuapp.com/admin/addUser/${this.state.taskId}/${data}`,
-      {
-        method: "PUT",
+    assignTask(this.state.taskId, data).then((data) => {
+      console.log(data);
+      if (data.error) {
+        return;
       }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        if (data.error) {
-          return;
-        }
-        this.setState({ redirect: true });
-      })
-      .catch((err) => {
-        console.log("Error in droping", err);
-      });
+      this.setState({ redirect: true });
+    });
   }
 
   render() {

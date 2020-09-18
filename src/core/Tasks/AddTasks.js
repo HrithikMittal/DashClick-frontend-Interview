@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { addTask } from "../../auth";
 import "./AddTasks.css";
 
 class AddTask extends Component {
@@ -99,39 +100,25 @@ class AddTask extends Component {
     if (user.subtasks.length !== 0) {
       user.subtasks = user.subtasks.split(" ");
     }
-    console.log(user);
-    fetch(`https://dashclick.herokuapp.com/admin/createTask`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          console.log(data);
-          this.setState({
-            error: data.error,
-          });
-          return;
-        }
+
+    addTask(user).then((data) => {
+      if (data.error) {
+        console.log(data);
         this.setState({
-          error: "",
-          workingHours: {},
-          subtasks: [],
-          dueDate: "",
-          name: "",
-          description: "",
-          success: true,
+          error: data.error,
         });
-      })
-      .catch((err) => {
-        console.log("Error in creating User!");
+        return;
+      }
+      this.setState({
+        error: "",
+        workingHours: {},
+        subtasks: [],
+        dueDate: "",
+        name: "",
+        description: "",
+        success: true,
       });
+    });
   };
 
   render() {
