@@ -166,6 +166,16 @@ class EditUser extends Component {
       });
   };
   render() {
+    if (this.props.designation !== this.state.designation) {
+      this.setState({
+        name: this.props.name,
+        email: this.props.email,
+        designation: this.props.designation,
+        dueDate: this.props.dueDate,
+        user: this.props.user,
+        workingHours: this.props.workingHours,
+      });
+    }
     return (
       <div className="container">
         <h2 className="mt-2 mb-3">Edit Profile</h2>

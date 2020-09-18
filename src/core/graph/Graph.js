@@ -3,7 +3,6 @@ import CanvasJSReact from "./canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Graph extends Component {
-  componentDidUpdate() {}
   render() {
     const { timing } = this.props;
     let baseVal = [
@@ -16,7 +15,7 @@ class Graph extends Component {
       { label: "Sun", y: [0, 0] },
     ];
     if (timing.monday !== undefined) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Mon") {
           ele.y[0] = timing.monday.start;
           ele.y[1] = timing.monday.end;
@@ -25,7 +24,7 @@ class Graph extends Component {
       });
     }
     if (timing.tuesday) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Tue") {
           ele.y[0] = timing.tuesday.start;
           ele.y[1] = timing.tuesday.end;
@@ -34,7 +33,7 @@ class Graph extends Component {
       });
     }
     if (timing.wednesday) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Wed") {
           ele.y[0] = timing.wednesday.start;
           ele.y[1] = timing.wednesday.end;
@@ -43,7 +42,7 @@ class Graph extends Component {
       });
     }
     if (timing.thursday) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Thurs") {
           ele.y[0] = timing.thursday.start;
           ele.y[1] = timing.thursday.end;
@@ -51,7 +50,7 @@ class Graph extends Component {
       });
     }
     if (timing.friday) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Fri") {
           ele.y[0] = timing.friday.start;
           ele.y[1] = timing.friday.end;
@@ -59,7 +58,7 @@ class Graph extends Component {
       });
     }
     if (timing.saturday) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Sat") {
           ele.y[0] = timing.saturday.start;
           ele.y[1] = timing.saturday.end;
@@ -67,7 +66,7 @@ class Graph extends Component {
       });
     }
     if (timing.sunday) {
-      baseVal.map((ele) => {
+      baseVal.forEach((ele) => {
         if (ele.label === "Sun") {
           ele.y[0] = timing.sunday.start;
           ele.y[1] = timing.sunday.end;
@@ -79,8 +78,8 @@ class Graph extends Component {
       theme: "light2",
       animationEnabled: true,
       exportEnabled: true,
-      title: {
-        text: "Working Hours",
+      axisX: {
+        title: "Week Days",
       },
       axisY: {
         title: "Time (in 24 hours)",

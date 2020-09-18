@@ -187,6 +187,15 @@ class EditTask extends Component {
   };
 
   render() {
+    if (this.props.description !== this.state.description) {
+      this.setState({
+        name: this.props.name,
+        description: this.props.description,
+        dueDate: this.props.dueDate,
+        subtasks: this.props.subtasks.join(","),
+        user: this.props.user,
+      });
+    }
     return (
       <div className="container">
         <h2 className="mt-2 mb-3">Edit Task</h2>
@@ -211,7 +220,7 @@ class EditTask extends Component {
             <input
               type="text"
               className="form-control"
-              defaultValue={this.state.name}
+              value={this.props.name}
               readOnly
             />
             <small id="emailHelp" className="form-text text-muted">
@@ -252,7 +261,7 @@ class EditTask extends Component {
             <label>
               User
               <i
-                class="fa fa-times-circle"
+                className="fa fa-times-circle"
                 style={{ display: this.state.user ? "" : "none" }}
                 onClick={(e) => this.deleteHandler(e, this.props.taskId)}
               ></i>

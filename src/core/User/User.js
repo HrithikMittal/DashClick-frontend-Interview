@@ -9,7 +9,7 @@ class User extends Component {
   state = {
     error: "",
     user: [],
-    currentTime: {},
+    workingHours: {},
     userId: "",
     graphOpen: false,
     newUserOpen: false,
@@ -57,7 +57,7 @@ class User extends Component {
     this.setState({ graphOpen: true, newUserOpen: false, editUserOpen: false });
     for (let i = 0; i < this.state.user.length; i++) {
       if (this.state.user[i]._id === id) {
-        this.setState({ currentTime: this.state.user[i].workingHours });
+        this.setState({ workingHours: this.state.user[i].workingHours });
         break;
       }
     }
@@ -94,17 +94,17 @@ class User extends Component {
           <th>
             <button
               type="button"
-              class="btn btn-primary"
+              className="btn btn-primary"
               data-toggle="modal"
               data-target="#exampleModalLong"
               onClick={() => this.showWorkingHour(ele._id)}
             >
-              <i class="fa fa-calendar"></i>
+              <i className="fa fa-calendar"></i>
             </button>
           </th>
 
           <th>
-            <i class="fa fa-tasks"></i>
+            <i className="fa fa-tasks"></i>
           </th>
           <th>
             {
@@ -145,7 +145,7 @@ class User extends Component {
     return (
       <div className="user-lists">
         <div
-          class="modal fade"
+          className="modal fade"
           id="exampleModalLong"
           // tabindex="-1"
           role="dialog"
@@ -153,14 +153,14 @@ class User extends Component {
           aria-hidden="true"
         >
           <div
-            class="modal-dialog modal-dialog-centered modal-lg"
+            className="modal-dialog modal-dialog-centered modal-lg"
             role="document"
           >
-            <div class="modal-content">
-              <div class="modal-header">
+            <div className="modal-content">
+              <div className="modal-header">
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   aria-label="Close"
                   onClick={() => this.updateUserHandler()}
@@ -168,9 +168,9 @@ class User extends Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 {this.state.graphOpen && (
-                  <Graph timing={this.state.currentTime} />
+                  <Graph timing={this.state.workingHours} />
                 )}
                 {this.state.newUserOpen && <AddUser />}
                 {this.state.editUserOpen && (
@@ -179,14 +179,14 @@ class User extends Component {
                     email={this.state.email}
                     name={this.state.name}
                     designation={this.state.designation}
-                    workingHours={this.state.currentTime}
+                    workingHours={this.state.workingHours}
                   />
                 )}
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   data-dismiss="modal"
                   onClick={() => this.updateUserHandler()}
                 >
