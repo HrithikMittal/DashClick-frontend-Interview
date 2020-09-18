@@ -155,17 +155,13 @@ class EditTask extends Component {
   deleteHandler = (e, id) => {
     e.preventDefault();
     this.setState({ user: undefined });
-    removeUser(id)
-      .then((response) => {
-        return response.json();
-      })
-      .then((res) => {
-        if (res.error) {
-          makeToast("error", "Request Failed");
-          return;
-        }
-        makeToast("success", "Deleted Succesfully !!");
-      });
+    removeUser(id).then((res) => {
+      if (res.error) {
+        makeToast("error", "Request Failed");
+        return;
+      }
+      makeToast("success", "Deleted Succesfully !!");
+    });
   };
 
   render() {

@@ -65,7 +65,7 @@ export const addUser = (user) => {
 };
 
 export const getUser = (userId) => {
-  return fetch(`${process.env.REACT_APP_API_URL}/admin/getUse/${userId}`, {
+  return fetch(`${process.env.REACT_APP_API_URL}/admin/getUser/${userId}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
