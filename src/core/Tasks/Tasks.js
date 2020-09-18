@@ -144,9 +144,19 @@ class Tasks extends Component {
                 <h5 className="card-title">
                   <b>{task.name}</b>
                 </h5>
-                <p className="card-text">{this.printDate(task.dueDate)}</p>
+                <p className="card-text">
+                  <b>Due Date:</b>
+                  {this.printDate(task.dueDate)}
+                </p>
 
-                <p>{task.description}</p>
+                <p>
+                  <b>Description:</b>
+                  {task.description}
+                </p>
+                <p>
+                  <b>Sub Tasks:</b>
+                  {task.subtasks.join(",")}
+                </p>
                 <button
                   type="button"
                   className="btn btn-primary"
