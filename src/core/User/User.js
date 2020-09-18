@@ -4,7 +4,6 @@ import makeToast from "../../components/Toaster";
 import AddUser from "../AddUser/AddUser";
 import EditUser from "../EditUser/EditUser";
 import "./User.css";
-// import MaterialTable from 'material-table';
 
 class User extends Component {
   state = {
@@ -65,7 +64,6 @@ class User extends Component {
   };
 
   deleteHandler = (e, id) => {
-    console.log(id);
     e.preventDefault();
     fetch(`https://dashclick.herokuapp.com/admin/deleteUser/${id}`, {
       method: "DELETE",

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import makeToast from "../../components/Toaster";
 import Graph from "../graph/Graph";
 import AddTask from "./AddTasks";
 import "./Tasks.css";
@@ -59,6 +59,27 @@ class Tasks extends Component {
       });
   }
 
+  deleteHandler = (e, id) => {
+    e.preventDefault();
+    fetch(`https://dashclick.herokuapp.com/admin/deleteTask/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        if (res.error) {
+          makeToast("error", "Request Failed");
+          return;
+        }
+        makeToast("success", "Deleted Succesfully !!");
+        let tasks = [...this.state.tasks];
+        tasks = tasks.filter((task) => task._id !== id);
+        this.setState({ tasks: tasks });
+      })
+      .catch((err) => makeToast("error", "Request Failed"));
+  };
+
   printDate = (date) => {
     var d = new Date(date);
     return d.toDateString();
@@ -111,7 +132,7 @@ class Tasks extends Component {
                 <button
                   type="button"
                   class="btn btn-danger"
-                  onClick={() => this.showWorkingHour(task._id)}
+                  onClick={(e) => this.deleteHandler(e, task._id)}
                 >
                   Delete
                 </button>
