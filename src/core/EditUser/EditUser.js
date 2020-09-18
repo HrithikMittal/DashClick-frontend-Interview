@@ -1,17 +1,36 @@
 import React, { Component } from "react";
+import equal from "fast-deep-equal";
 
 import { editUser } from "../../auth";
 import "./EditUser.css";
 
 class EditUser extends Component {
   state = {
-    email: this.props.email,
-    name: this.props.name,
-    designation: this.props.designation,
+    email: "",
+    name: "",
+    designation: "",
     workingHours: {},
     success: false,
     error: "",
   };
+
+  componentDidUpdate(prevProps) {
+    if (!equal(this.props.email, prevProps.email)) {
+      this.updateUser();
+    }
+  }
+
+  updateUser() {
+    this.setState({
+      sunday: false,
+      name: this.props.name,
+      email: this.props.email,
+      designation: this.props.designation,
+      dueDate: this.props.dueDate,
+      user: this.props.user,
+      workingHours: this.props.workingHours,
+    });
+  }
 
   componentDidMount() {
     this.setState({
@@ -151,16 +170,6 @@ class EditUser extends Component {
     });
   };
   render() {
-    if (this.props.designation !== this.state.designation) {
-      this.setState({
-        name: this.props.name,
-        email: this.props.email,
-        designation: this.props.designation,
-        dueDate: this.props.dueDate,
-        user: this.props.user,
-        workingHours: this.props.workingHours,
-      });
-    }
     return (
       <div className="container">
         <h2 className="mt-2 mb-3">Edit Profile</h2>
@@ -185,7 +194,6 @@ class EditUser extends Component {
             <input
               type="email"
               className="form-control"
-              onChange={this.handleChange("email")}
               value={this.state.email}
               readOnly
             />
@@ -199,6 +207,7 @@ class EditUser extends Component {
               type="text"
               className="form-control"
               value={this.state.name}
+              onChange={this.handleChange("name")}
               placeholder="Name"
             />
           </div>

@@ -135,7 +135,7 @@ class Tasks extends Component {
                 </p>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="button-calender"
                   data-toggle="modal"
                   data-target="#exampleModalLong"
                   onClick={() => this.showWorkingHour(task._id)}
@@ -144,7 +144,7 @@ class Tasks extends Component {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-warning"
+                  className="button-editTask"
                   data-toggle="modal"
                   data-target="#exampleModalLong"
                   onClick={(e) => {
@@ -155,7 +155,7 @@ class Tasks extends Component {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="button-delete"
                   onClick={(e) => this.deleteHandler(e, task._id)}
                 >
                   Delete <i className="fa fa-trash"></i>

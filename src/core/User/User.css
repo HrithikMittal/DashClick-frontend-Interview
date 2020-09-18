@@ -1,24 +1,49 @@
+.row h1 {
+    margin-left: 150px;
+    margin-top: 30px;
+    font-size: 35px;
+    font-weight: bolder;
+    color: #E6E7EE;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, .3); 
+    cursor: pointer;
+}
+
 .main_table {
-    width: 1370px;
+    width: 1390px;
     margin-top: 50px;
-    margin-left: 140px;
+    margin-left: 120px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow:  5px 5px 11px #aaabb0, 
+             -5px -5px 11px #ffffff
+}
+
+
+.list_data {
+    cursor: pointer;
 }
 
 .list_data:hover {
-    background-color: rgb(238, 235, 235);
+    box-shadow: inset 3px 3px 4px #aaabb0, 
+            inset -3px -3px 4px #ffffff;
 }
+
 
 .user-lists .row .add_user_button{
     width: 130px;
     height: 35px;
-    background-color: #4285F4;
-    color: white;
+    color: #04132b;
     border-radius: 30px;
     border: none;
     cursor: pointer;
+    background: linear-gradient(145deg, #f6f7ff, #cfd0d6);
+    box-shadow:  5px 5px 11px #b1b2b7, 
+             -5px -5px 11px #ffffff;
 }
 
 .user-lists .row .add_user_button:hover{
-    background-color: #0d47a1;
+    background: linear-gradient(145deg, #cfd0d6, #f6f7ff);
+    box-shadow:  5px 5px 11px #b1b2b7, 
+             -5px -5px 11px #ffffff
 }
 

@@ -5,7 +5,7 @@
     box-sizing: border-box;
     background-color: #4285F4;
     color: #fff;
-    box-shadow: 10px 0px 10px rgba(0, 0, 0, .1);
+    box-shadow: 5px 0px 5px rgba(80, 53, 53, 0.4);
 }
 
 .main__sidenav i {
@@ -16,3 +16,4 @@
 .main__sidenav .nav-item {
     margin-left: 5px;
 }
+

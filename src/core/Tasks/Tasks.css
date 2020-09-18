@@ -1,0 +1,53 @@
+.container-fluid h2 {
+    color: #E6E7EE;
+    font-weight: bolder;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, .3); 
+}
+
+.row {
+    padding-left: 10px;
+    padding-bottom: 200px;
+}
+.row .card {
+    border-radius: 30px;
+    background: #E6E7EE;
+    box-shadow:  5px 5px 10px #bfc0c6, 
+             -5px -5px 10px #ffffff;
+    cursor: pointer;
+}
+
+.row .card:hover{
+    border-radius: 30px;
+    background: #E6E7EE;
+    box-shadow: inset 5px 5px 10px #bfc0c6, 
+            inset -5px -5px 10px #ffffff;
+}
+
+button.button-delete,.button-calender,.button-editTask {   
+    border: none;
+    background-color: #E6E7EE;
+    margin: 5px;
+    box-shadow:  2px 2px 2px #b8b9be, 
+             -2px -2px 2px #ffffff;
+    cursor: pointer;
+}
+
+button.button-calender{
+    color: #007E33;
+    width: 130px;
+    height: 30px;
+    
+}
+
+button.button-editTask,.button-delete{
+    color: #CC0000;
+    width: 80px;
+    height: 30px;
+}
+
+button.button-delete:hover,.button-calender:hover,.button-editTask:hover{
+    box-shadow: inset 2px 2px 2px #b8b9be, 
+            inset -2px -2px 2px #ffffff;
+}
+
+
