@@ -26,7 +26,9 @@ class Tasks extends Component {
   };
 
   updateTasksHandler = () => {
-    fetch(`https://dashclick.herokuapp.com/admin/getAllTasks`)
+    fetch(`https://dashclick.herokuapp.com/admin/getAllTasks`, {
+      method: "GET",
+    })
       .then((response) => {
         return response.json();
       })
@@ -43,7 +45,9 @@ class Tasks extends Component {
   };
 
   componentDidMount() {
-    fetch("http://dashclick.herokuapp.com/admin/getAllTasks")
+    fetch("https://dashclick.herokuapp.com/admin/getAllTasks", {
+      method: "GET",
+    })
       .then((response) => {
         return response.json();
       })
