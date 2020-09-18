@@ -50,6 +50,23 @@ class Tasks extends Component {
   renderTasks = (tasks) => {
     return (
       <div className="row">
+        <div
+          className="card col-md-3 text-center"
+          data-toggle="modal"
+          data-target="#exampleModalLong"
+          style={{ margin: "10px" }}
+          onClick={() =>
+            this.setState({
+              graphOpen: false,
+              editUserOpen: false,
+              newUserOpen: true,
+            })
+          }
+        >
+          <div className="card-body text-center">
+            <i style={{ fontSize: "150px" }} class="fa fa-plus-square"></i>
+          </div>
+        </div>
         {tasks.map((task, i) => {
           const address = "/task/" + task._id;
           return (
@@ -130,22 +147,6 @@ class Tasks extends Component {
         <div className="container-fluid" style={{ marginLeft: "100px" }}>
           <h2 className="mt-5 mb-5">All Tasks</h2>
           {this.renderTasks(this.state.tasks)}
-          <div
-            className="card col-md-3 text-center"
-            data-toggle="modal"
-            data-target="#exampleModalLong"
-            onClick={() =>
-              this.setState({
-                graphOpen: false,
-                editUserOpen: false,
-                newUserOpen: true,
-              })
-            }
-          >
-            <div className="card-body text-center">
-              <i style={{ fontSize: "100px" }} class="fa fa-plus-square"></i>
-            </div>
-          </div>
         </div>
       </>
     );

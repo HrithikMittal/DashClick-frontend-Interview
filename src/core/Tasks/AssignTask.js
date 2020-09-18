@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 class AssignTask extends Component {
   state = {
@@ -10,6 +11,7 @@ class AssignTask extends Component {
     name: "",
     description: "",
     workingHours: {},
+    redirect: false,
   };
 
   componentDidMount() {
@@ -58,7 +60,7 @@ class AssignTask extends Component {
     users.map((user, i) => {
       return (
         <tr key={user._id}>
-          <td>Hi{user.name}</td>
+          <td>{user.name}</td>
           <td>{user.email}</td>
         </tr>
       );
@@ -70,11 +72,55 @@ class AssignTask extends Component {
     return d.toDateString();
   };
 
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+
+    fetch(
+      `https://dashclick.herokuapp.com/admin/addUser/${this.state.taskId}/${data}`,
+      {
+        method: "PUT",
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          return;
+        }
+        this.setState({ redirect: true });
+      })
+      .catch((err) => {
+        console.log("Error in droping", err);
+      });
+  }
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/tasks"></Redirect>;
+    }
+
     var data = this.state.users.map((user, i) => {
+      const dynamicId = user._id;
       return (
-        <tr key={user._id}>
-          <td>{user.name}</td>
+        <tr
+          key={user._id}
+          draggable="true"
+          onDragStart={(e) => this.drag(e)}
+          id={dynamicId}
+        >
+          <td className={dynamicId}>{user.name}</td>
           <td>{user.email}</td>
         </tr>
       );
@@ -94,6 +140,17 @@ class AssignTask extends Component {
             <h5>{this.printDate(this.state.dueDate)}</h5>
             <h6>Sub Tasks</h6>
             <ul>{subTask}</ul>
+            <div
+              id="div1"
+              onDrop={(e) => this.drop(e)}
+              onDragOver={(e) => this.allowDrop(e)}
+              style={{
+                width: "550px",
+                height: "70px",
+                padding: "10px",
+                border: "1px solid #aaaaaa",
+              }}
+            ></div>
           </div>
         </div>
         <div className="col-4">
