@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import equal from "fast-deep-equal";
+
 import { editTask, removeUser } from "../../auth";
 
 import makeToast from "../../components/Toaster";
@@ -15,6 +17,21 @@ class EditTask extends Component {
     success: false,
     error: "",
   };
+
+  componentDidUpdate(prevProps) {
+    if (!equal(this.props.name, prevProps.name)) {
+      this.updateTask();
+    }
+  }
+  updateTask() {
+    this.setState({
+      name: this.props.name,
+      description: this.props.description,
+      dueDate: this.props.dueDate,
+      subtasks: this.props.subtasks.join(","),
+      user: this.props.user,
+    });
+  }
 
   componentDidMount() {
     this.setState({
@@ -138,7 +155,7 @@ class EditTask extends Component {
       task.workingHours = time;
     }
 
-    editTask(this.props.taskId).then((data) => {
+    editTask(this.props.taskId, task).then((data) => {
       if (data.error) {
         this.setState({
           error: data.error,
@@ -165,15 +182,6 @@ class EditTask extends Component {
   };
 
   render() {
-    if (this.props.description !== this.state.description) {
-      this.setState({
-        name: this.props.name,
-        description: this.props.description,
-        dueDate: this.props.dueDate,
-        subtasks: this.props.subtasks.join(","),
-        user: this.props.user,
-      });
-    }
     return (
       <div className="container">
         <h2 className="mt-2 mb-3">Edit Task</h2>
