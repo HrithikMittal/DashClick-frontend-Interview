@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import makeToast from "../../components/Toaster";
 import Graph from "../graph/Graph";
 import AddTask from "./AddTasks";
+import EditTask from "./EditTask";
+
 import "./Tasks.css";
 
 class Tasks extends Component {
@@ -13,13 +16,18 @@ class Tasks extends Component {
     subtasks: [],
     workingHours: {},
     tasks: [],
+    taskId: "",
+    graphOpen: false,
+    newTaskOpen: false,
+    editTaskOpen: false,
+    user: "",
   };
 
   showWorkingHour = (id) => {
-    this.setState({ graphOpen: true, newUserOpen: false, editUserOpen: false });
+    this.setState({ graphOpen: true, newTaskOpen: false, editTaskOpen: false });
     for (let i = 0; i < this.state.tasks.length; i++) {
       if (this.state.tasks[i]._id === id) {
-        this.setState({ currentTime: this.state.tasks[i].workingHours });
+        this.setState({ workingHours: this.state.tasks[i].workingHours });
         break;
       }
     }
@@ -89,6 +97,21 @@ class Tasks extends Component {
     return d.toDateString();
   };
 
+  editTask = (e, task) => {
+    this.showWorkingHour(task._id);
+    this.setState({
+      taskId: task._id,
+      graphOpen: false,
+      newTaskOpen: false,
+      editTaskOpen: true,
+      name: task.name,
+      description: task.description,
+      dueDate: task.dueDate,
+      subtasks: task.subtasks,
+      user: task.user,
+    });
+  };
+
   renderTasks = (tasks) => {
     return (
       <div className="row">
@@ -100,8 +123,8 @@ class Tasks extends Component {
           onClick={() =>
             this.setState({
               graphOpen: false,
-              editUserOpen: false,
-              newUserOpen: true,
+              editTaskOpen: false,
+              newTaskOpen: true,
             })
           }
         >
@@ -126,19 +149,30 @@ class Tasks extends Component {
                 <p>{task.description}</p>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   data-toggle="modal"
                   data-target="#exampleModalLong"
                   onClick={() => this.showWorkingHour(task._id)}
                 >
-                  Working Hours <i class="fa fa-calendar"></i>
+                  Working Hours <i className="fa fa-calendar"></i>
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-warning"
+                  data-toggle="modal"
+                  data-target="#exampleModalLong"
+                  onClick={(e) => {
+                    this.editTask(e, task);
+                  }}
+                >
+                  Edit <i className="fa fa-edit"></i>
                 </button>
                 <button
                   type="button"
                   class="btn btn-danger"
                   onClick={(e) => this.deleteHandler(e, task._id)}
                 >
-                  Delete
+                  Delete <i class="fa fa-trash"></i>
                 </button>
                 <div className="text-right">
                   {task.user !== undefined ? (
@@ -186,9 +220,20 @@ class Tasks extends Component {
                 </div>
                 <div class="modal-body">
                   {this.state.graphOpen && (
-                    <Graph timing={this.state.currentTime} />
+                    <Graph timing={this.state.workingHours} />
                   )}
-                  {this.state.newUserOpen && <AddTask />}
+                  {this.state.editTaskOpen && (
+                    <EditTask
+                      name={this.state.name}
+                      description={this.state.description}
+                      dueDate={this.state.dueDate}
+                      subtasks={this.state.subtasks}
+                      user={this.state.user}
+                      workingHours={this.state.workingHours}
+                      taskId={this.state.taskId}
+                    />
+                  )}
+                  {this.state.newTaskOpen && <AddTask />}
                 </div>
                 <div class="modal-footer">
                   <button

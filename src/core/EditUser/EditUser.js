@@ -8,6 +8,7 @@ class EditUser extends Component {
     designation: this.props.designation,
     workingHours: {},
     success: false,
+    error: "",
   };
 
   componentDidMount() {
