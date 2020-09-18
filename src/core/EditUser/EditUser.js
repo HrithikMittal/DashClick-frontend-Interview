@@ -129,30 +129,26 @@ class EditUser extends Component {
       user.workingHours = time;
     }
 
-    editUser(this.props.userId, user)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({
-            designation: "",
-            name: "",
-            email: "",
-            error: data.error,
-            success: false,
-          });
-          return;
-        }
+    editUser(this.props.userId, user).then((data) => {
+      if (data.error) {
         this.setState({
-          error: "",
-          workingHours: {},
           designation: "",
           name: "",
           email: "",
-          success: true,
+          error: data.error,
+          success: false,
         });
+        return;
+      }
+      this.setState({
+        error: "",
+        workingHours: {},
+        designation: "",
+        name: "",
+        email: "",
+        success: true,
       });
+    });
   };
   render() {
     if (this.props.designation !== this.state.designation) {

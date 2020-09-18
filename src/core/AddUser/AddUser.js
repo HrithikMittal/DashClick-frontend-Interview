@@ -97,29 +97,25 @@ class AddUser extends Component {
     }
     user.workingHours = obj;
 
-    addUser(user)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          this.setState({
-            designation: "",
-            name: "",
-            email: "",
-            error: data.error,
-          });
-          return;
-        }
+    addUser(user).then((data) => {
+      if (data.error) {
         this.setState({
-          error: "",
-          workingHours: {},
           designation: "",
           name: "",
           email: "",
-          success: true,
+          error: data.error,
         });
+        return;
+      }
+      this.setState({
+        error: "",
+        workingHours: {},
+        designation: "",
+        name: "",
+        email: "",
+        success: true,
       });
+    });
   };
 
   render() {
