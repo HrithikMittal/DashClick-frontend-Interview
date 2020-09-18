@@ -6,6 +6,7 @@ import SideNavbar from "./core/SideNavbar/SideNavbar";
 import User from "./core/User/User";
 import Tasks from "./core/Tasks/Tasks";
 import AssignTask from "./core/Tasks/AssignTask";
+import UserTask from "./core/User/UserTask";
 
 const MainRouter = () => {
   return (
@@ -16,6 +17,7 @@ const MainRouter = () => {
         <Route path="/user" exact component={User}></Route>
         <Route path="/tasks" exact component={Tasks}></Route>
         <Route path="/task/:taskId" component={AssignTask}></Route>
+        <Route path="/user/:userId" component={UserTask}></Route>
       </Switch>
     </div>
   );

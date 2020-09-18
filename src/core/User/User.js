@@ -4,6 +4,7 @@ import makeToast from "../../components/Toaster";
 import AddUser from "../AddUser/AddUser";
 import EditUser from "../EditUser/EditUser";
 import "./User.css";
+import { Link } from "react-router-dom";
 
 class User extends Component {
   state = {
@@ -86,6 +87,7 @@ class User extends Component {
 
   render() {
     var data = this.state.user.map((ele) => {
+      var add = "/user/" + ele._id;
       return (
         <tr className="list_data" key={ele._id}>
           <th>{ele.name}</th>
@@ -104,7 +106,9 @@ class User extends Component {
           </th>
 
           <th>
-            <i className="fa fa-tasks"></i>
+            <Link to={add}>
+              <i className="fa fa-tasks"></i>
+            </Link>
           </th>
           <th>
             {

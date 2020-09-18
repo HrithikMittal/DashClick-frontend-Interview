@@ -214,7 +214,6 @@ class EditUser extends Component {
               type="text"
               className="form-control"
               value={this.state.name}
-              onChange={this.handleChange("name")}
               placeholder="Name"
             />
           </div>
