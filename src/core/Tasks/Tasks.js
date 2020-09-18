@@ -129,7 +129,7 @@ class Tasks extends Component {
           }
         >
           <div className="card-body text-center">
-            <i style={{ fontSize: "150px" }} class="fa fa-plus-square"></i>
+            <i style={{ fontSize: "150px" }} className="fa fa-plus-square"></i>
           </div>
         </div>
         {tasks.map((task, i) => {
@@ -169,17 +169,17 @@ class Tasks extends Component {
                 </button>
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  className="btn btn-danger"
                   onClick={(e) => this.deleteHandler(e, task._id)}
                 >
-                  Delete <i class="fa fa-trash"></i>
+                  Delete <i className="fa fa-trash"></i>
                 </button>
                 <div className="text-right">
                   {task.user !== undefined ? (
                     <h5>{task.user.name}</h5>
                   ) : (
                     <Link to={address}>
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" className="btn btn-primary">
                         Assign User
                       </button>
                     </Link>
@@ -198,21 +198,21 @@ class Tasks extends Component {
       <>
         <div className="user-lists">
           <div
-            class="modal fade"
+            className="modal fade"
             id="exampleModalLong"
             role="dialog"
             aria-labelledby="exampleModalLongTitle"
             aria-hidden="true"
           >
             <div
-              class="modal-dialog modal-dialog-centered modal-lg"
+              className="modal-dialog modal-dialog-centered modal-lg"
               role="document"
             >
-              <div class="modal-content">
-                <div class="modal-header">
+              <div className="modal-content">
+                <div className="modal-header">
                   <button
                     type="button"
-                    class="close"
+                    className="close"
                     data-dismiss="modal"
                     aria-label="Close"
                     onClick={() => this.updateTasksHandler()}
@@ -220,7 +220,7 @@ class Tasks extends Component {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   {this.state.graphOpen && (
                     <Graph timing={this.state.workingHours} />
                   )}
@@ -237,10 +237,10 @@ class Tasks extends Component {
                   )}
                   {this.state.newTaskOpen && <AddTask />}
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-dismiss="modal"
                     onClick={() => this.updateTasksHandler()}
                   >
