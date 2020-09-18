@@ -136,7 +136,7 @@ class Tasks extends Component {
           const address = "/task/" + task._id;
           return (
             <div
-              className="card col-md-3"
+              className="card col-md-5"
               key={task._id}
               style={{ margin: "10px" }}
             >
@@ -178,9 +178,11 @@ class Tasks extends Component {
                   {task.user !== undefined ? (
                     <h5>{task.user.name}</h5>
                   ) : (
-                    <button type="button" class="btn btn-primary">
-                      <Link to={address}>Assign User</Link>
-                    </button>
+                    <Link to={address}>
+                      <button type="button" class="btn btn-primary">
+                        Assign User
+                      </button>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -251,7 +253,9 @@ class Tasks extends Component {
         </div>
         <div className="container-fluid" style={{ marginLeft: "100px" }}>
           <h2 className="mt-5 mb-5">All Tasks</h2>
-          {this.renderTasks(this.state.tasks)}
+          <div style={{ overflow: "auto", height: "800px" }}>
+            {this.renderTasks(this.state.tasks)}
+          </div>
         </div>
       </>
     );

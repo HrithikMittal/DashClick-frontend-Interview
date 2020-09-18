@@ -223,7 +223,10 @@ class User extends Component {
             position: "absolute",
           }}
         >
-          <div className="main_table">
+          <div
+            className="main_table"
+            style={{ overflow: "auto", height: "800px" }}
+          >
             <table className="table ">
               <thead>
                 <tr>
