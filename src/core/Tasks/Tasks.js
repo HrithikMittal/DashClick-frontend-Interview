@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import Graph from "../graph/Graph";
 import AddTask from "./AddTasks";
 import "./Tasks.css";
@@ -49,6 +51,7 @@ class Tasks extends Component {
     return (
       <div className="row">
         {tasks.map((task, i) => {
+          const address = "/task/" + task._id;
           return (
             <div
               className="card col-md-3"
@@ -67,7 +70,7 @@ class Tasks extends Component {
                     <h5>{task.user.name}</h5>
                   ) : (
                     <button type="button" class="btn btn-primary">
-                      Assign User
+                      <Link to={address}>Assign User</Link>
                     </button>
                   )}
                 </div>

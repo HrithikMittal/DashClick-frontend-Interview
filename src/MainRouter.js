@@ -15,7 +15,7 @@ const MainRouter = () => {
         <Route path="/" exact component={Home}></Route>
         <Route path="/user" exact component={User}></Route>
         <Route path="/tasks" exact component={Tasks}></Route>
-        <Route path="/task" component={AssignTask}></Route>
+        <Route path="/task/:taskId" component={AssignTask}></Route>
       </Switch>
     </div>
   );
