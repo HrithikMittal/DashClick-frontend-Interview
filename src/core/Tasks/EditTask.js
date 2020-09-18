@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { editUser, removeUser } from "../../auth";
+import { editTask, removeUser } from "../../auth";
 
 import makeToast from "../../components/Toaster";
 import "./EditTask.css";
@@ -138,7 +138,7 @@ class EditTask extends Component {
       task.workingHours = time;
     }
 
-    editUser(this.props.taskId).then((data) => {
+    editTask(this.props.taskId).then((data) => {
       if (data.error) {
         this.setState({
           error: data.error,
