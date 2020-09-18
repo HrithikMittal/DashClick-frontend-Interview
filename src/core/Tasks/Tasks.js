@@ -62,6 +62,15 @@ class Tasks extends Component {
                 <p className="card-text">{this.printDate(task.dueDate)}</p>
 
                 <p>{task.description}</p>
+                <div className="text-right">
+                  {task.user !== undefined ? (
+                    <h5>{task.user.name}</h5>
+                  ) : (
+                    <button type="button" class="btn btn-primary">
+                      Assign User
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           );
@@ -114,28 +123,26 @@ class Tasks extends Component {
               </div>
             </div>
           </div>
-          <div className="row">
-            <button
-              className="add_user_button"
-              type="button"
-              style={{ position: "absolute", right: 50, top: 30 }}
-              data-toggle="modal"
-              data-target="#exampleModalLong"
-              onClick={() =>
-                this.setState({
-                  graphOpen: false,
-                  editUserOpen: false,
-                  newUserOpen: true,
-                })
-              }
-            >
-              Add Task
-            </button>
-          </div>
         </div>
         <div className="container-fluid" style={{ marginLeft: "100px" }}>
           <h2 className="mt-5 mb-5">All Tasks</h2>
           {this.renderTasks(this.state.tasks)}
+          <div
+            className="card col-md-3 text-center"
+            data-toggle="modal"
+            data-target="#exampleModalLong"
+            onClick={() =>
+              this.setState({
+                graphOpen: false,
+                editUserOpen: false,
+                newUserOpen: true,
+              })
+            }
+          >
+            <div className="card-body text-center">
+              <i style={{ fontSize: "100px" }} class="fa fa-plus-square"></i>
+            </div>
+          </div>
         </div>
       </>
     );

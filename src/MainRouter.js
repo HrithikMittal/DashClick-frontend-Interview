@@ -5,6 +5,7 @@ import Home from "./core/Home";
 import SideNavbar from "./core/SideNavbar/SideNavbar";
 import User from "./core/User/User";
 import Tasks from "./core/Tasks/Tasks";
+import AssignTask from "./core/Tasks/AssignTask";
 
 const MainRouter = () => {
   return (
@@ -14,6 +15,7 @@ const MainRouter = () => {
         <Route path="/" exact component={Home}></Route>
         <Route path="/user" exact component={User}></Route>
         <Route path="/tasks" exact component={Tasks}></Route>
+        <Route path="/task" component={AssignTask}></Route>
       </Switch>
     </div>
   );
