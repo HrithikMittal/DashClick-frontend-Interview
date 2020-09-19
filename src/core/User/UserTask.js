@@ -33,7 +33,7 @@ class UserTask extends Component {
       );
     });
     return (
-      <main style={{ overflow: "scroll", height: "1000px" }}>
+      <main style={{ overflow: "scroll", height: "1000px",}}>
         <ol className="gradient-list">{data}</ol>
       </main>
     );

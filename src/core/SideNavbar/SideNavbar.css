@@ -3,9 +3,8 @@
     width: 80px;
     height: 100%;
     box-sizing: border-box;
-    background-color: #4285F4;
+    background-color:#000b76;
     color: #fff;
-    box-shadow: 5px 0px 5px rgba(80, 53, 53, 0.4);
 }
 
 .main__sidenav i {

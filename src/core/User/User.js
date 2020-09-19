@@ -72,8 +72,8 @@ class User extends Component {
       var add = "/user/" + ele._id;
       return (
         <tr className="list_data" key={ele._id}>
-          <th>{ele.name}</th>
-          <th>{ele.email}</th>
+          <th style={{ color: '#39456B' }}>{ele.name}</th>
+          <th style={{ color:'#FF4F73'}}>{ele.email}</th>
           <th>{ele.designation}</th>
           <th>
             <button
@@ -81,9 +81,8 @@ class User extends Component {
               className="btn btn-primary"
               data-toggle="modal"
               data-target="#exampleModalLong"
-              onClick={() => this.showWorkingHour(ele._id)}
-            >
-              <i className="fa fa-calendar"></i>
+              onClick={() => this.showWorkingHour(ele._id)}>
+                <i className="fa fa-calendar"></i>
             </button>
           </th>
 
@@ -130,6 +129,7 @@ class User extends Component {
 
     return (
       <div className="user-lists">
+        <h1>All Users</h1>
         <div
           className="modal fade"
           id="exampleModalLong"
@@ -216,7 +216,7 @@ class User extends Component {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Email</th>
+                  <th >Email</th>
                   <th>Designation</th>
                   <th>Working Hours</th>
                   <th style={{ float: "center" }}>Tasks</th>

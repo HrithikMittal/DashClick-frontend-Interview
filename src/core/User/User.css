@@ -1,10 +1,10 @@
-.row h1 {
-    margin-left: 150px;
+.user-lists h1 {
     margin-top: 30px;
+    margin-left: 150px;
     font-size: 35px;
     font-weight: bolder;
-    color: #E6E7EE;
-    text-shadow: 3px 3px 3px rgba(0, 0, 0, .3); 
+    color: #fff;
+    text-shadow: 3px 3px 5px #0105299c; 
     cursor: pointer;
 }
 
@@ -14,36 +14,40 @@
     margin-left: 120px;
     padding: 20px;
     border-radius: 20px;
-    box-shadow:  5px 5px 11px #aaabb0, 
-             -5px -5px 11px #ffffff
+    background: #e3e6f1;
+    box-shadow:  13px 13px 26px #e1e2e6, 
+             -13px -13px 26px #fdfeff;
 }
-
 
 .list_data {
     cursor: pointer;
 }
 
 .list_data:hover {
-    box-shadow: inset 3px 3px 4px #aaabb0, 
-            inset -3px -3px 4px #ffffff;
+    background: linear-gradient(145deg, #cccfd9, #f3f6ff);
+    box-shadow:  9px 9px 18px #cacdd6, 
+             -9px -9px 18px #fcffff;
 }
 
 
 .user-lists .row .add_user_button{
     width: 130px;
+    margin-right: 50px;
     height: 35px;
-    color: #04132b;
+    color: #FF4F73;
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    background: linear-gradient(145deg, #f6f7ff, #cfd0d6);
-    box-shadow:  5px 5px 11px #b1b2b7, 
-             -5px -5px 11px #ffffff;
+    background: #e3e6f1;
+    box-shadow:  5px 5px 8px #cfd1db, 
+             -5px -5px 8px #f7fbff;
+
 }
 
 .user-lists .row .add_user_button:hover{
-    background: linear-gradient(145deg, #cfd0d6, #f6f7ff);
-    box-shadow:  5px 5px 11px #b1b2b7, 
-             -5px -5px 11px #ffffff
+    background: linear-gradient(145deg, #cccfd9, #f3f6ff);
+    box-shadow:  6px 6px 12px #b3b6be, 
+             -6px -6px 12px #ffffff;
 }
+
 
