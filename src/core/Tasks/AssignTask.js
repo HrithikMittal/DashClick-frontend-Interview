@@ -108,11 +108,33 @@ class AssignTask extends Component {
         <div className="col-1"></div>
         <div className="col-7">
           <div className="container-fluid">
-            <h3>{this.state.name}</h3>
-            <p>{this.state.description}</p>
-            <h5>{this.printDate(this.state.dueDate)}</h5>
-            <h6>Sub Tasks</h6>
-            <ul>{subTask}</ul>
+            <h3>Assign User to the Task</h3>
+            <h5>
+              <b>Name:</b>
+              {this.state.name}
+            </h5>
+            <h5>
+              <b>Description:</b>
+              {this.state.description}
+            </h5>
+            <h5>
+              <b>Due Date:</b>
+              {this.printDate(this.state.dueDate)}
+            </h5>
+            <h5>
+              <b>Sub Tasks:</b>
+            </h5>
+            <h6>
+              <ul>{subTask}</ul>
+            </h6>
+            <div
+              class="alert alert-info"
+              role="alert"
+              style={{ marginTop: "50px" }}
+            >
+              Please drag a div of user which you want to assign and drop inside
+              below box and you are done!
+            </div>
             <div
               id="div1"
               onDrop={(e) => this.drop(e)}
@@ -126,7 +148,8 @@ class AssignTask extends Component {
             ></div>
           </div>
         </div>
-        <div className="col-4">
+
+        <div className="col-4" style={{ overflow: "scroll", height: "800px" }}>
           <table className="table">
             <thead>
               <tr>
