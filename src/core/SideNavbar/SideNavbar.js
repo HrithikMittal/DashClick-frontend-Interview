@@ -28,12 +28,7 @@ const SideNavbar = () => {
                 </NavIcon>
                 <NavText style={{ fontSize: "16px" }}>Home</NavText>
               </NavItem>
-              <NavItem eventKey="admin/login" className="nav-item">
-                <NavIcon>
-                  <i className="fa fa-sign-in" />
-                </NavIcon>
-                <NavText style={{ fontSize: "16px" }}>Login</NavText>
-              </NavItem>
+
               <NavItem eventKey="user" className="nav-item">
                 <NavIcon>
                   <i className="fa fa-users" />
