@@ -121,7 +121,7 @@ class AddUser extends Component {
   render() {
     return (
       <div className="container">
-        <h2 className="mt-2 mb-3">Sign In</h2>
+        <h2 className="mt-2 mb-3">Add User</h2>
 
         <div
           className="alert alert-danger"

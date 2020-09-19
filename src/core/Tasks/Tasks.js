@@ -203,7 +203,7 @@ class Tasks extends Component {
               className="modal-dialog modal-dialog-centered modal-lg"
               role="document"
             >
-              <div className="modal-content">
+              <div className="modal-content" style={{ borderRadius: "50px" }}>
                 <div className="modal-header">
                   <button
                     type="button"
