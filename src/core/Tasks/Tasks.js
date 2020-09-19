@@ -105,7 +105,13 @@ class Tasks extends Component {
           }
         >
           <div className="card-body text-center">
-            <i style={{ fontSize: "150px" }} className="fa fa-plus-square"></i>
+            <i
+              style={{ fontSize: "150px", color: "lightblue" }}
+              className="fa fa-plus-square"
+            ></i>
+            <div className="card-body">
+              <h4 className="card-text">Add New Task</h4>
+            </div>
           </div>
         </div>
         {tasks.map((task, i) => {

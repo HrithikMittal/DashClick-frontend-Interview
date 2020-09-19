@@ -245,10 +245,17 @@ class EditTask extends Component {
           </div>
           <div className="form-group">
             <label>
-              User
+              User&nbsp;&nbsp;
               <i
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Remove the Assigned user"
                 className="fa fa-times-circle"
-                style={{ display: this.state.user ? "" : "none" }}
+                style={{
+                  display: this.state.user ? "" : "none",
+                  color: "red",
+                  fontSize: "18px",
+                }}
                 onClick={(e) => this.deleteHandler(e, this.props.taskId)}
               ></i>
             </label>
