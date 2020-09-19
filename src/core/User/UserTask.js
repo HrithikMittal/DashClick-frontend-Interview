@@ -35,9 +35,11 @@ class UserTask extends Component {
     return (
       <main style={{ overflow: "scroll", height: "1000px" }}>
         {this.state.tasks.length === 0 && (
-          <li>
-            <b>Sorry, this is no Tasks for this user !!!</b>
-          </li>
+          <ol className="gradient-list">
+            <li>
+              <b>Sorry, this is no Tasks for this user !!!</b>
+            </li>
+          </ol>
         )}
         <ol className="gradient-list">{data}</ol>
       </main>
